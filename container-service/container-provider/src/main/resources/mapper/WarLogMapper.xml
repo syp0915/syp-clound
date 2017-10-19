@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shfc.cloud.container.dao.WarLogMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.cloud.container.domain.WarLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="channel_no" jdbcType="VARCHAR" property="channelNo" />
+    <result column="war_id" jdbcType="BIGINT" property="warId" />
+    <result column="environment" jdbcType="TINYINT" property="environment" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="is_success" jdbcType="TINYINT" property="isSuccess" />
+    <result column="desc_content" jdbcType="VARCHAR" property="descContent" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, channel_no, war_id, environment, type, is_success, desc_content, creater,
+    create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from war_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from war_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.cloud.container.domain.WarLog" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into war_log (id, merchant_id, channel_no,
+    war_id, environment, type,
+    is_success, desc_content, creater,
+    create_time, modifier, modify_time,
+    version)
+    values (#{id,jdbcType=BIGINT}, #{merchantId,jdbcType=BIGINT}, #{channelNo,jdbcType=VARCHAR},
+    #{warId,jdbcType=BIGINT}, #{environment,jdbcType=TINYINT}, #{type,jdbcType=TINYINT},
+    #{isSuccess,jdbcType=TINYINT}, #{descContent,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT},
+    now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP},
+    0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.cloud.container.domain.WarLog" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into war_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="channelNo != null">
+        channel_no,
+      </if>
+      <if test="warId != null">
+        war_id,
+      </if>
+      <if test="environment != null">
+        environment,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="isSuccess != null">
+        is_success,
+      </if>
+      <if test="descContent != null">
+        desc_content,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="warId != null">
+        #{warId,jdbcType=BIGINT},
+      </if>
+      <if test="environment != null">
+        #{environment,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="isSuccess != null">
+        #{isSuccess,jdbcType=TINYINT},
+      </if>
+      <if test="descContent != null">
+        #{descContent,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.cloud.container.domain.WarLog">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update war_log
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        channel_no = #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="warId != null">
+        war_id = #{warId,jdbcType=BIGINT},
+      </if>
+      <if test="environment != null">
+        environment = #{environment,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="isSuccess != null">
+        is_success = #{isSuccess,jdbcType=TINYINT},
+      </if>
+      <if test="descContent != null">
+        desc_content = #{descContent,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.cloud.container.domain.WarLog">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update war_log
+    set merchant_id = #{merchantId,jdbcType=BIGINT},
+    channel_no = #{channelNo,jdbcType=VARCHAR},
+    war_id = #{warId,jdbcType=BIGINT},
+    environment = #{environment,jdbcType=TINYINT},
+    type = #{type,jdbcType=TINYINT},
+    is_success = #{isSuccess,jdbcType=TINYINT},
+    desc_content = #{descContent,jdbcType=VARCHAR},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from war_log
+    order by create_time desc
+  </select>
+</mapper>

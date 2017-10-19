@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.mac.dao.MacInfoMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.mac.domain.MacInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="residence_id" jdbcType="BIGINT" property="residenceId" />
+    <result column="residence_name" jdbcType="VARCHAR" property="residenceName" />
+    <result column="building_id" jdbcType="BIGINT" property="buildingId" />
+    <result column="building_no" jdbcType="VARCHAR" property="buildingNo" />
+    <result column="lon" jdbcType="VARCHAR" property="lon" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="block_id" jdbcType="BIGINT" property="blockId" />
+    <result column="block" jdbcType="VARCHAR" property="block" />
+    <result column="serial_no" jdbcType="VARCHAR" property="serialNo" />
+    <result column="res_code" jdbcType="VARCHAR" property="resCode" />
+    <result column="res_name" jdbcType="VARCHAR" property="resName" />
+    <result column="res_category" jdbcType="VARCHAR" property="resCategory" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mac, residence_id, residence_name, building_id, building_no, lon, lat, district_id,
+    district, block_id, block, serial_no, res_code, res_name, res_category, creater,
+    create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from mac_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from mac_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.mac.domain.MacInfo" useGeneratedKeys="true">
+    <!--
+    开发负责人：xiehb
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into mac_info (id, mac, residence_id,
+    residence_name, building_id, building_no,
+    lon, lat, district_id,
+    district, block_id, block,
+    serial_no, res_code, res_name,
+    res_category, creater, create_time,
+    modifier, modify_time, version
+    )
+    values (#{id,jdbcType=BIGINT}, #{mac,jdbcType=VARCHAR}, #{residenceId,jdbcType=BIGINT},
+    #{residenceName,jdbcType=VARCHAR}, #{buildingId,jdbcType=BIGINT}, #{buildingNo,jdbcType=VARCHAR},
+    #{lon,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{districtId,jdbcType=BIGINT},
+    #{district,jdbcType=VARCHAR}, #{blockId,jdbcType=BIGINT}, #{block,jdbcType=VARCHAR},
+    #{serialNo,jdbcType=VARCHAR}, #{resCode,jdbcType=VARCHAR}, #{resName,jdbcType=VARCHAR},
+    #{resCategory,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT}, now(),
+    #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0
+    )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.mac.domain.MacInfo" useGeneratedKeys="true">
+    <!--
+    开发负责人：xiehb
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into mac_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mac != null">
+        mac,
+      </if>
+      <if test="residenceId != null">
+        residence_id,
+      </if>
+      <if test="residenceName != null">
+        residence_name,
+      </if>
+      <if test="buildingId != null">
+        building_id,
+      </if>
+      <if test="buildingNo != null">
+        building_no,
+      </if>
+      <if test="lon != null">
+        lon,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="district != null">
+        district,
+      </if>
+      <if test="blockId != null">
+        block_id,
+      </if>
+      <if test="block != null">
+        block,
+      </if>
+      <if test="serialNo != null">
+        serial_no,
+      </if>
+      <if test="resCode != null">
+        res_code,
+      </if>
+      <if test="resName != null">
+        res_name,
+      </if>
+      <if test="resCategory != null">
+        res_category,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="mac != null">
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceId != null">
+        #{residenceId,jdbcType=BIGINT},
+      </if>
+      <if test="residenceName != null">
+        #{residenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingNo != null">
+        #{buildingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null">
+        #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="district != null">
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="block != null">
+        #{block,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNo != null">
+        #{serialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="resCode != null">
+        #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="resName != null">
+        #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resCategory != null">
+        #{resCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.mac.domain.MacInfo">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update mac_info
+    <set>
+      <if test="mac != null">
+        mac = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceId != null">
+        residence_id = #{residenceId,jdbcType=BIGINT},
+      </if>
+      <if test="residenceName != null">
+        residence_name = #{residenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null">
+        building_id = #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingNo != null">
+        building_no = #{buildingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null">
+        lon = #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null">
+        district_id = #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="blockId != null">
+        block_id = #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="block != null">
+        block = #{block,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNo != null">
+        serial_no = #{serialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="resCode != null">
+        res_code = #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="resName != null">
+        res_name = #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resCategory != null">
+        res_category = #{resCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.mac.domain.MacInfo">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update mac_info
+    set mac = #{mac,jdbcType=VARCHAR},
+    residence_id = #{residenceId,jdbcType=BIGINT},
+    residence_name = #{residenceName,jdbcType=VARCHAR},
+    building_id = #{buildingId,jdbcType=BIGINT},
+    building_no = #{buildingNo,jdbcType=VARCHAR},
+    lon = #{lon,jdbcType=VARCHAR},
+    lat = #{lat,jdbcType=VARCHAR},
+    district_id = #{districtId,jdbcType=BIGINT},
+    district = #{district,jdbcType=VARCHAR},
+    block_id = #{blockId,jdbcType=BIGINT},
+    block = #{block,jdbcType=VARCHAR},
+    serial_no = #{serialNo,jdbcType=VARCHAR},
+    res_code = #{resCode,jdbcType=VARCHAR},
+    res_name = #{resName,jdbcType=VARCHAR},
+    res_category = #{resCategory,jdbcType=VARCHAR},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByMac" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * from mac_info where mac =#{mac,jdbcType=VARCHAR} LIMIT 1;
+  </select>
+</mapper>

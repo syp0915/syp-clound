@@ -1,0 +1,9 @@
+/srv/jar/house-service/current/log/authentication-service.log {
+    weekly
+    rotate 3
+    copytruncate
+    delaycompress
+    compress
+    notifempty
+    missingok
+}

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.cloud.cloudbase.dao.SourceChannelMapper">
+    <resultMap id="BaseResultMap" type="com.shfc.cloud.cloudbase.domain.SourceChannel">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="channel_number" jdbcType="VARCHAR" property="channelNumber"/>
+        <result column="channer_url" jdbcType="VARCHAR" property="channerUrl"/>
+        <result column="contract_id" jdbcType="BIGINT" property="contractId"/>
+        <result column="contract_number" jdbcType="VARCHAR" property="contractNumber"/>
+        <result column="merchant_id" jdbcType="BIGINT" property="merchantId"/>
+        <result column="merchant_number" jdbcType="VARCHAR" property="merchantNumber"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="open_time" jdbcType="TIMESTAMP" property="openTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="version" jdbcType="BIGINT" property="version"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, channel_number, channer_url, contract_id, contract_number, merchant_id, merchant_number, 
+    name, type, status, open_time, end_time, create_time, version
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--
+        开发负责人：liaozm
+        功能说明：根据主键获取一条数据库记录
+        是否有缓存：无
+        -->
+        select
+        <include refid="Base_Column_List"/>
+        from source_channel
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--
+        开发负责人：liaozm
+        功能说明：根据主键删除数据库的记录
+        是否有缓存：无
+        -->
+        delete from source_channel
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyProperty="id" parameterType="com.shfc.cloud.cloudbase.domain.SourceChannel"
+            useGeneratedKeys="true">
+        <!--
+        开发负责人：liaozm
+        功能说明：插入数据库记录
+        是否有缓存：无
+        -->
+        insert into source_channel (id, channel_number, channer_url,
+        contract_id, contract_number, merchant_id,
+        merchant_number, name, type,
+        status, open_time, end_time,
+        create_time, version)
+        values (#{id,jdbcType=BIGINT}, #{channelNumber,jdbcType=VARCHAR}, #{channerUrl,jdbcType=VARCHAR},
+        #{contractId,jdbcType=BIGINT}, #{contractNumber,jdbcType=VARCHAR}, #{merchantId,jdbcType=BIGINT},
+        #{merchantNumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+        #{status,jdbcType=TINYINT}, #{openTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+        now(), 0)
+    </insert>
+    <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.cloud.cloudbase.domain.SourceChannel"
+            useGeneratedKeys="true">
+        <!--
+        开发负责人：liaozm
+        功能说明：选择性插入数据库记录
+        是否有缓存：无
+        -->
+        insert into source_channel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="channelNumber != null">
+                channel_number,
+            </if>
+            <if test="channerUrl != null">
+                channer_url,
+            </if>
+            <if test="contractId != null">
+                contract_id,
+            </if>
+            <if test="contractNumber != null">
+                contract_number,
+            </if>
+            <if test="merchantId != null">
+                merchant_id,
+            </if>
+            <if test="merchantNumber != null">
+                merchant_number,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="openTime != null">
+                open_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="channelNumber != null">
+                #{channelNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="channerUrl != null">
+                #{channerUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="contractId != null">
+                #{contractId,jdbcType=BIGINT},
+            </if>
+            <if test="contractNumber != null">
+                #{contractNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null">
+                #{merchantId,jdbcType=BIGINT},
+            </if>
+            <if test="merchantNumber != null">
+                #{merchantNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=TINYINT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="openTime != null">
+                #{openTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                now(),
+            </if>
+            <if test="version != null">
+                0,
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.shfc.cloud.cloudbase.domain.SourceChannel">
+        <!--
+        开发负责人：liaozm
+        功能说明：根据主键来更新对应数据库字段
+        是否有缓存：无
+        -->
+        update source_channel
+        <set>
+            <if test="channelNumber != null">
+                channel_number = #{channelNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="channerUrl != null">
+                channer_url = #{channerUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="contractId != null">
+                contract_id = #{contractId,jdbcType=BIGINT},
+            </if>
+            <if test="contractNumber != null">
+                contract_number = #{contractNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null">
+                merchant_id = #{merchantId,jdbcType=BIGINT},
+            </if>
+            <if test="merchantNumber != null">
+                merchant_number = #{merchantNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=TINYINT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="openTime != null">
+                open_time = #{openTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            version = version+1
+        </set>
+        where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.shfc.cloud.cloudbase.domain.SourceChannel">
+        <!--
+        开发负责人：liaozm
+        功能说明：根据主键来更新数据库记录
+        是否有缓存：无
+        -->
+        update source_channel
+        set channel_number = #{channelNumber,jdbcType=VARCHAR},
+        channer_url = #{channerUrl,jdbcType=VARCHAR},
+        contract_id = #{contractId,jdbcType=BIGINT},
+        contract_number = #{contractNumber,jdbcType=VARCHAR},
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+        merchant_number = #{merchantNumber,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        type = #{type,jdbcType=TINYINT},
+        status = #{status,jdbcType=TINYINT},
+        open_time = #{openTime,jdbcType=TIMESTAMP},
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        version = version+1
+        where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from source_channel
+        order by create_time desc
+    </select>
+
+    <select id="queryChannelByKeyword" parameterType="java.util.HashMap" resultType="com.shfc.cloud.cloudbase.dto.ChannelDTO">
+        SELECT
+        channel_number as channelNo, name as channelName
+        FROM
+        source_channel
+        where channel_number LIKE CONCAT(#{keyword},'%') or name LIKE CONCAT('%',#{keyword},'%')
+        and status=2
+        <if test="num!=null">
+            limit #{num}
+        </if>
+        <if test="num==null">
+            limit 10
+        </if>
+
+    </select>
+
+    <select id="queryChannelNameByNo" parameterType="java.lang.String" resultType="com.shfc.cloud.cloudbase.dto.ChannelDTO">
+    SELECT
+    merchant_id as merchantNo, name as channelName,channel_number as channelNo,status
+    FROM
+    source_channel
+    where  channel_number=#{channelNO} and now() BETWEEN open_time and end_time
+  </select>
+    <select id="queryAllChannelNameByNo" parameterType="java.lang.String" resultType="com.shfc.cloud.cloudbase.dto.ChannelDTO">
+        SELECT
+        merchant_id as merchantNo, name as channelName,channel_number as channelNo,status
+        FROM
+        source_channel
+        where  channel_number=#{channelNO}
+    </select>
+
+    <!--查询所有频道列表-->
+    <select id="queryAllChannelList" resultMap="BaseResultMap">
+      select
+      channel_number,
+      merchant_id
+      from source_channel
+      where status = 2
+    </select>
+</mapper>

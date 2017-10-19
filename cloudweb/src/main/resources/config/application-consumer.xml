@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!-- 定义使用服务的的消费者bean -->
+    <bean id="referenceBean" abstract="true" class="com.alibaba.dubbo.config.spring.ReferenceBean">
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="consumer" ref="consumerConfig"/>
+        <property name="version" value="${consumer.default_version}"/>
+    </bean>
+
+    <bean id="consumerConfig" class="com.alibaba.dubbo.config.ConsumerConfig">
+        <property name="check" value="${consume.service_check}"/>
+    </bean>
+
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.authentication.service.AuthenticationService"/>
+        <property name="timeout" value="6000"/>
+    </bean>
+    <!--敏感词管理-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.gateway.service.SensitiveService"/>
+    </bean>
+<!--    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.video.service.VideoService"/>
+    </bean>-->
+    <!--邮件服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.mail.service.EmailService"/>
+    </bean>
+    <!--签名服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsMerchantSignService"/>
+    </bean>
+    <!--模板服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsMerchantTemplateService"/>
+    </bean>
+    <!--短信发送服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsSendService"/>
+    </bean>
+    <!--短信查询记录 -->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsRecordService"/>
+    </bean>
+    <!--语音发送服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsSendVoiceService"/>
+    </bean>
+    <!--网管权限管理-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.gateway.service.GatewayAuthService"/>
+    </bean>
+    <!--商户白名单管理-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.gateway.service.WhiteListService"/>
+    </bean>
+
+    <!--区域板块-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.cloudbase.service.AreaService"/>
+    </bean>
+
+    <!--关键词-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.cloudbase.service.KeywordService"/>
+    </bean>
+
+    <!--媒资板块-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.video.service.VideoService"/>
+    </bean>
+
+    <!--账号板块-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.account.service.AccountService"/>
+    </bean>
+
+    <!--实时概况-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.monitor.service.RealTimeStatisticsService"/>
+    </bean>
+
+    <!--监控服务-地区趋势-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.monitor.service.SummanyTypeService"/>
+    </bean>
+
+    <!--监控服务-时间趋势-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.monitor.service.TrendService"/>
+    </bean>
+
+    <!--资源监控-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.monitor.service.ResourceMonitorService"/>
+    </bean>
+
+    <!--容器管理-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.container.service.ContainerManageService"/>
+    </bean>
+
+    <!--mac查询-->
+    <bean parent="referenceBean">
+        <property name="timeout" value="20000"/>
+        <property name="interface" value="com.shfc.mac.service.MacListService"/>
+    </bean>
+
+    <!--监控服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.monitor.service.DataMonitorService"/>
+        <property name="timeout" value="6000"/>
+    </bean>
+    <!--飘频服务-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.flowscreen.service.FlowscreenService"/>
+    </bean>
+
+    <!--cloudbase服务 频道查询-->
+    <bean parent="referenceBean">
+        <property name="interface" value="com.shfc.cloud.cloudbase.service.ChannelService"/>
+    </bean>
+
+</beans>

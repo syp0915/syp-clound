@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.cloud.video.dao.WarPackageMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.cloud.video.domain.WarPackage">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="channel_no" jdbcType="VARCHAR" property="channelNo" />
+    <result column="war_name" jdbcType="VARCHAR" property="warName" />
+    <result column="environment" jdbcType="TINYINT" property="environment" />
+    <result column="war_size" jdbcType="BIGINT" property="warSize" />
+    <result column="war_version" jdbcType="VARCHAR" property="warVersion" />
+    <result column="war_url" jdbcType="VARCHAR" property="warUrl" />
+    <result column="war_realname" jdbcType="VARCHAR" property="warRealname" />
+    <result column="desc_content" jdbcType="VARCHAR" property="descContent" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="is_del" jdbcType="TINYINT" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, channel_no, war_name, environment, war_size, war_version, war_url,
+    war_realname, desc_content, creater, create_time, modifier, modify_time, version,
+    status, is_del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from war_package
+    where id = #{id,jdbcType=BIGINT} and is_del = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from war_package
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.cloud.video.domain.WarPackage" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into war_package (id, merchant_id, channel_no,
+    war_name, environment, war_size,
+    war_version, war_url, war_realname,
+    desc_content, creater, create_time,
+    modifier, modify_time, version,
+    status, is_del)
+    values (#{id,jdbcType=BIGINT}, #{merchantId,jdbcType=BIGINT}, #{channelNo,jdbcType=VARCHAR},
+    #{warName,jdbcType=VARCHAR}, #{environment,jdbcType=TINYINT}, #{warSize,jdbcType=BIGINT},
+    #{warVersion,jdbcType=VARCHAR}, #{warUrl,jdbcType=VARCHAR}, #{warRealname,jdbcType=VARCHAR},
+    #{descContent,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT}, now(),
+    #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0,
+    #{status,jdbcType=TINYINT}, #{isDel,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.cloud.video.domain.WarPackage" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into war_package
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="channelNo != null">
+        channel_no,
+      </if>
+      <if test="warName != null">
+        war_name,
+      </if>
+      <if test="environment != null">
+        environment,
+      </if>
+      <if test="warSize != null">
+        war_size,
+      </if>
+      <if test="warVersion != null">
+        war_version,
+      </if>
+      <if test="warUrl != null">
+        war_url,
+      </if>
+      <if test="warRealname != null">
+        war_realname,
+      </if>
+      <if test="descContent != null">
+        desc_content,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="warName != null">
+        #{warName,jdbcType=VARCHAR},
+      </if>
+      <if test="environment != null">
+        #{environment,jdbcType=TINYINT},
+      </if>
+      <if test="warSize != null">
+        #{warSize,jdbcType=BIGINT},
+      </if>
+      <if test="warVersion != null">
+        #{warVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="warUrl != null">
+        #{warUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="warRealname != null">
+        #{warRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="descContent != null">
+        #{descContent,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.cloud.video.domain.WarPackage">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update war_package
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        channel_no = #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="warName != null">
+        war_name = #{warName,jdbcType=VARCHAR},
+      </if>
+      <if test="environment != null">
+        environment = #{environment,jdbcType=TINYINT},
+      </if>
+      <if test="warSize != null">
+        war_size = #{warSize,jdbcType=BIGINT},
+      </if>
+      <if test="warVersion != null">
+        war_version = #{warVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="warUrl != null">
+        war_url = #{warUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="warRealname != null">
+        war_realname = #{warRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="descContent != null">
+        desc_content = #{descContent,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.cloud.video.domain.WarPackage">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update war_package
+    set merchant_id = #{merchantId,jdbcType=BIGINT},
+    channel_no = #{channelNo,jdbcType=VARCHAR},
+    war_name = #{warName,jdbcType=VARCHAR},
+    environment = #{environment,jdbcType=TINYINT},
+    war_size = #{warSize,jdbcType=BIGINT},
+    war_version = #{warVersion,jdbcType=VARCHAR},
+    war_url = #{warUrl,jdbcType=VARCHAR},
+    war_realname = #{warRealname,jdbcType=VARCHAR},
+    desc_content = #{descContent,jdbcType=VARCHAR},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1,
+    status = #{status,jdbcType=TINYINT},
+    is_del = #{isDel,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from war_package
+    order by create_time desc
+  </select>
+  <resultMap id="warListMap" type="com.shfc.cloud.video.dto.WarlistQueryDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="war_name" jdbcType="VARCHAR" property="warName" />
+    <result column="war_size" jdbcType="BIGINT" property="size" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="war_version" jdbcType="VARCHAR" property="warVersion" />
+  </resultMap>
+  <select id="warlist" parameterType="com.shfc.cloud.video.query.WarlistQuery" resultMap="warListMap">
+    SELECT id,war_name,war_version,war_size,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') create_time ,status from war_package w
+     where is_del = 0
+     <if test="query!=null">
+        <if test="query.merchantId !=null and query.merchantId != '' and query.merchantId != '88888'  ">
+          and w.merchant_id = #{query.merchantId}
+        </if>
+        <if test="query.channelNo !=null and query.channelNo != '' ">
+          and w.channel_no = #{query.channelNo}
+        </if>
+        <if test="query.environment !=null and query.environment != '' ">
+          and w.environment = #{query.environment}
+        </if>
+    </if>
+    order by create_time desc
+  </select>
+  <select id="selectByWarNameAndVersion" resultType="java.lang.Integer">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    count(*)
+    from war_package
+    where war_name = #{warName} and war_version = #{warVersion} and is_del = 0
+  </select>
+</mapper>

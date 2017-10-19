@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.flowscreen.dao.FlowscreenRecordMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.flowscreen.domain.FlowscreenRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="channel_no" jdbcType="VARCHAR" property="channelNo" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shfc.flowscreen.domain.FlowscreenRecord">
+    <result column="url" jdbcType="LONGVARCHAR" property="url" />
+    <result column="reason" jdbcType="LONGVARCHAR" property="reason" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, channel_no, mac, status, creater, create_time, modifier, modify_time, 
+    version
+  </sql>
+  <sql id="Blob_Column_List">
+    url, reason
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flowscreen_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from flowscreen_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.flowscreen.domain.FlowscreenRecord" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into flowscreen_record (id, merchant_id, channel_no, 
+      mac, status, creater, 
+      create_time, modifier, modify_time, 
+      version, url, reason
+      )
+    values (#{id,jdbcType=BIGINT}, #{merchantId,jdbcType=BIGINT}, #{channelNo,jdbcType=VARCHAR}, 
+      #{mac,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0, #{url,jdbcType=LONGVARCHAR}, #{reason,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.flowscreen.domain.FlowscreenRecord" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into flowscreen_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="channelNo != null">
+        channel_no,
+      </if>
+      <if test="mac != null">
+        mac,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.flowscreen.domain.FlowscreenRecord">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update flowscreen_record
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        channel_no = #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        mac = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="url != null">
+        url = #{url,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shfc.flowscreen.domain.FlowscreenRecord">
+    <!--
+    开发负责人：lv bin
+    是否有缓存：无
+    -->
+    update flowscreen_record
+    set merchant_id = #{merchantId,jdbcType=BIGINT},
+      channel_no = #{channelNo,jdbcType=VARCHAR},
+      mac = #{mac,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      url = #{url,jdbcType=LONGVARCHAR},
+      reason = #{reason,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.flowscreen.domain.FlowscreenRecord">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update flowscreen_record
+    set merchant_id = #{merchantId,jdbcType=BIGINT},
+      channel_no = #{channelNo,jdbcType=VARCHAR},
+      mac = #{mac,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+</mapper>

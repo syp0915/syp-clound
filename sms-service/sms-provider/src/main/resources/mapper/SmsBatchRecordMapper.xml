@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.sms.dao.SmsBatchRecordMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.sms.domain.SmsBatchRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="channel_no" jdbcType="VARCHAR" property="channelNo" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="total_count" jdbcType="INTEGER" property="totalCount" />
+    <result column="total_fee" jdbcType="DECIMAL" property="totalFee" />
+    <result column="sms_unit" jdbcType="VARCHAR" property="smsUnit" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="batch_type" jdbcType="TINYINT" property="batchType" />
+    <result column="send_status" jdbcType="TINYINT" property="sendStatus" />
+    <result column="template_id" jdbcType="BIGINT" property="templateId" />
+    <result column="channel" jdbcType="TINYINT" property="channel" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, channel_no, mobile, total_count, total_fee, sms_unit, content, batch_type, send_status,
+    template_id, channel, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from sms_batch_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from sms_batch_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.sms.domain.SmsBatchRecord" useGeneratedKeys="true">
+    <!--
+    开发负责人：xiehb
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into sms_batch_record (id, merchant_id,channel_no, mobile,
+      total_count, total_fee, sms_unit, 
+      content, batch_type, send_status, 
+      template_id, channel, creater, 
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{merchantId,jdbcType=BIGINT},#{channelNo,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+      #{totalCount,jdbcType=INTEGER}, #{totalFee,jdbcType=DECIMAL}, #{smsUnit,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{batchType,jdbcType=TINYINT}, #{sendStatus,jdbcType=TINYINT}, 
+      #{templateId,jdbcType=BIGINT}, #{channel,jdbcType=TINYINT}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.sms.domain.SmsBatchRecord" useGeneratedKeys="true">
+    <!--
+    开发负责人：xiehb
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into sms_batch_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="channelNo != null">
+        channel_no,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="totalCount != null">
+        total_count,
+      </if>
+      <if test="totalFee != null">
+        total_fee,
+      </if>
+      <if test="smsUnit != null">
+        sms_unit,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="batchType != null">
+        batch_type,
+      </if>
+      <if test="sendStatus != null">
+        send_status,
+      </if>
+      <if test="templateId != null">
+        template_id,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCount != null">
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalFee != null">
+        #{totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="smsUnit != null">
+        #{smsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="batchType != null">
+        #{batchType,jdbcType=TINYINT},
+      </if>
+      <if test="sendStatus != null">
+        #{sendStatus,jdbcType=TINYINT},
+      </if>
+      <if test="templateId != null">
+        #{templateId,jdbcType=BIGINT},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.sms.domain.SmsBatchRecord">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update sms_batch_record
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        channel_no = #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCount != null">
+        total_count = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalFee != null">
+        total_fee = #{totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="smsUnit != null">
+        sms_unit = #{smsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="batchType != null">
+        batch_type = #{batchType,jdbcType=TINYINT},
+      </if>
+      <if test="sendStatus != null">
+        send_status = #{sendStatus,jdbcType=TINYINT},
+      </if>
+      <if test="templateId != null">
+        template_id = #{templateId,jdbcType=BIGINT},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.sms.domain.SmsBatchRecord">
+    <!--
+    开发负责人：xiehb
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update sms_batch_record
+    set merchant_id = #{merchantId,jdbcType=BIGINT},
+      channel_no = #{channelNo,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      total_count = #{totalCount,jdbcType=INTEGER},
+      total_fee = #{totalFee,jdbcType=DECIMAL},
+      sms_unit = #{smsUnit,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      batch_type = #{batchType,jdbcType=TINYINT},
+      send_status = #{sendStatus,jdbcType=TINYINT},
+      template_id = #{templateId,jdbcType=BIGINT},
+      channel = #{channel,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="smsBatchRecordList" parameterType="com.shfc.sms.query.SmsRecordQuery" resultType="com.shfc.sms.dto.SmsRecordResultDTO">
+    SELECT t.id as 'sid',t.channel_no as 'channelNo',t.mobile as 'mobile',t.content as 'content',t.total_count as 'sendCount',t.send_status as 'sendStatus',t.batch_type as 'batchType'
+    from sms_batch_record t
+    <where>
+      <if test="query!=null">
+        <if test="query.merchantId !=null and query.merchantId != '' ">
+          t.merchant_id = #{query.merchantId}
+        </if>
+        <if test="query.channelNo !=null and query.channelNo != '' ">
+          and t.channel_no = #{query.channelNo}
+        </if>
+        <!--<if test="query.mobile !=null and query.mobile != '' ">
+          and t.mobile  LIKE CONCAT('%',#{query.mobile},'%')
+        </if>-->
+        <!--<if test="query.templateId !=null and query.templateId != '' ">
+          and t.template_id = #{query.templateId}
+        </if>-->
+        <if test="query.sendStatus !=null and query.sendStatus !='' ">
+          and t.send_status = #{query.sendStatus}
+        </if>
+        <if test="query.beginTime !=null and query.beginTime !='' and query.endTime !=null and query.endTime !=null">
+          and t.create_time BETWEEN STR_TO_DATE(#{query.beginTime},'%Y-%m-%d') and STR_TO_DATE(date_add(#{query.endTime},interval 1 day),'%Y-%m-%d')
+        </if>
+      </if>
+    </where>
+  </select>
+</mapper>

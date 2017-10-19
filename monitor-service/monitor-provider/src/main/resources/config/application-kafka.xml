@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="kafkaProducerConfig" class="com.shfc.kafka.producer.KafkaProducerConfig">
+        <property name="kafkaBrokers" value="${kafka.broker}"/>
+        <property name="producerRequestRequiredAcks" value="${kafka.producer.request.equired.acks}"/>
+        <property name="producerQueueBufferTime" value="${kafka.producer.queue.buffer.time}"/>
+        <property name="producerBatchNum" value="${kafka.producer.batch.num}"/>
+        <property name="producerRetry" value="${kafka.producer.retry}"/>
+    </bean>
+
+    <bean id="kafkaConsumerConfig" class="com.shfc.kafka.comsumer.KafkaConsumerConfig">
+        <property name="zookeeperConnect" value="${kafka.zookeeper.connect}"/>
+        <property name="zookeeperSessionTimeoutMs" value="${kafka.zookeeper.session.timeout.ms}"/>
+        <property name="zookeeperSyncTimeMs" value="${kafka.zookeeper.sync.time.ms}"/>
+        <property name="autCommitEnable" value="${kafka.aut.commit.enable}"/>
+        <property name="groupId" value="${kafka.groupId}"/>
+    </bean>
+
+    <bean id="consumerClient" class="com.shfc.kafka.comsumer.KafkaConsumerClient" destroy-method="destroyConsumer"/>
+
+</beans>

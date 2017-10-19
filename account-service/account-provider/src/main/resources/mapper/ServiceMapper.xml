@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.cloud.account.dao.ServiceMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.cloud.account.domain.Service">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="channel_id" jdbcType="BIGINT" property="channelId" />
+    <result column="channel_number" jdbcType="VARCHAR" property="channelNumber" />
+    <result column="type_id" jdbcType="BIGINT" property="typeId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="is_open" jdbcType="BIT" property="isOpen" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, channel_id, channel_number, type_id, type_name, is_open
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from service
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from service
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.cloud.account.domain.Service" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into service (id, merchant_id, channel_id,
+    channel_number, type_id, type_name,
+    is_open)
+    values (#{id,jdbcType=BIGINT}, #{merchantId,jdbcType=BIGINT}, #{channelId,jdbcType=BIGINT},
+    #{channelNumber,jdbcType=VARCHAR}, #{typeId,jdbcType=BIGINT}, #{typeName,jdbcType=VARCHAR},
+    #{isOpen,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.cloud.account.domain.Service" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="channelId != null">
+        channel_id,
+      </if>
+      <if test="channelNumber != null">
+        channel_number,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="typeName != null">
+        type_name,
+      </if>
+      <if test="isOpen != null">
+        is_open,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNumber != null">
+        #{channelNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null">
+        #{isOpen,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.cloud.account.domain.Service">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update service
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNumber != null">
+        channel_number = #{channelNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null">
+        is_open = #{isOpen,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.cloud.account.domain.Service">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update service
+    set merchant_id = #{merchantId,jdbcType=BIGINT},
+    channel_id = #{channelId,jdbcType=BIGINT},
+    channel_number = #{channelNumber,jdbcType=VARCHAR},
+    type_id = #{typeId,jdbcType=BIGINT},
+    type_name = #{typeName,jdbcType=VARCHAR},
+    is_open = #{isOpen,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from service
+    order by create_time desc
+  </select>
+  <select id="selectService" parameterType="com.shfc.cloud.account.query.CheckMerchantQuery" resultMap="BaseResultMap">
+    <!--
+    开发负责人：liaozm
+    功能说明：
+    是否有缓存：无
+    -->
+    select
+    s.id, s.merchant_id, s.channel_id, s.channel_number, s.type_id, s.type_name, s.is_open
+    from service s,source_channel c
+    where s.merchant_id = c.merchant_id AND s.channel_number=c.channel_number AND c.status=2 AND c.end_time >= NOW()
+    and s.merchant_id = #{query.merchantId,jdbcType=BIGINT} and s.channel_number = #{query.channelNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

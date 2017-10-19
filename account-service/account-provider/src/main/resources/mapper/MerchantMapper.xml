@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shfc.cloud.account.dao.MerchantMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.cloud.account.domain.Merchant">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_number" jdbcType="VARCHAR" property="merchantNumber" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="review_status" jdbcType="TINYINT" property="reviewStatus" />
+    <result column="account_status" jdbcType="TINYINT" property="accountStatus" />
+    <result column="invoice_header" jdbcType="VARCHAR" property="invoiceHeader" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_number, company_id, company_name, account, password, contact_name, contact_phone,
+    review_status, account_status, invoice_header, creater, create_time, modifier, modify_time,
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from merchant
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from merchant
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.cloud.account.domain.Merchant" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into merchant (id, merchant_number, company_id,
+    company_name, account, password,
+    contact_name, contact_phone, review_status,
+    account_status, invoice_header, creater,
+    create_time, modifier, modify_time,
+    version)
+    values (#{id,jdbcType=BIGINT}, #{merchantNumber,jdbcType=VARCHAR}, #{companyId,jdbcType=BIGINT},
+    #{companyName,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    #{contactName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, #{reviewStatus,jdbcType=TINYINT},
+    #{accountStatus,jdbcType=TINYINT}, #{invoiceHeader,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT},
+    now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP},
+    0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.cloud.account.domain.Merchant" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into merchant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantNumber != null">
+        merchant_number,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="contactName != null">
+        contact_name,
+      </if>
+      <if test="contactPhone != null">
+        contact_phone,
+      </if>
+      <if test="reviewStatus != null">
+        review_status,
+      </if>
+      <if test="accountStatus != null">
+        account_status,
+      </if>
+      <if test="invoiceHeader != null">
+        invoice_header,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantNumber != null">
+        #{merchantNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null">
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewStatus != null">
+        #{reviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="accountStatus != null">
+        #{accountStatus,jdbcType=TINYINT},
+      </if>
+      <if test="invoiceHeader != null">
+        #{invoiceHeader,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.cloud.account.domain.Merchant">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update merchant
+    <set>
+      <if test="merchantNumber != null">
+        merchant_number = #{merchantNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null">
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null">
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewStatus != null">
+        review_status = #{reviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="accountStatus != null">
+        account_status = #{accountStatus,jdbcType=TINYINT},
+      </if>
+      <if test="invoiceHeader != null">
+        invoice_header = #{invoiceHeader,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.cloud.account.domain.Merchant">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update merchant
+    set merchant_number = #{merchantNumber,jdbcType=VARCHAR},
+    company_id = #{companyId,jdbcType=BIGINT},
+    company_name = #{companyName,jdbcType=VARCHAR},
+    account = #{account,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR},
+    contact_name = #{contactName,jdbcType=VARCHAR},
+    contact_phone = #{contactPhone,jdbcType=VARCHAR},
+    review_status = #{reviewStatus,jdbcType=TINYINT},
+    account_status = #{accountStatus,jdbcType=TINYINT},
+    invoice_header = #{invoiceHeader,jdbcType=VARCHAR},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from merchant
+    order by create_time desc
+  </select>
+  <resultMap id="MerchantInfoResultMap" type="com.shfc.cloud.account.dto.MerchantInfoDTO" >
+    <id column="id" property="merchantId" jdbcType="BIGINT" />
+    <result column="merchant_number" property="merchantNo" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="contacter" property="contactPerson" jdbcType="VARCHAR" />
+    <result column="phone" property="telphone" jdbcType="VARCHAR" />
+    <result column="registration_time" property="registrationTime" jdbcType="VARCHAR" />
+    <result column="licence_code" property="businessLicense" jdbcType="TIMESTAMP" />
+    <result column="audit_status" property="checkStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <select id="selectMerchant" resultMap="MerchantInfoResultMap" parameterType="com.shfc.cloud.account.query.UserInfoQuery" >
+    SELECT m.id,m.merchant_number,m.account,m.company_name,c.contacter,c.phone,c.registration_time,c.licence_code,c.audit_status FROM merchant m ,
+    merchant_company c WHERE m.company_id = c.id
+    <if test="query.merchantId != null and query.merchantId != ''">
+      and m.id = #{query.merchantId,jdbcType=BIGINT}
+    </if>
+    <if test="query.merchantNo != null and query.merchantNo != ''">
+      and m.merchant_number = #{query.merchantNo,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <resultMap id="MerchantResultMap" type="com.shfc.cloud.account.dto.MerchantDTO" >
+    <id column="id" property="merchantId" jdbcType="BIGINT" />
+    <result column="merchant_number" property="merchantNo" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="contacter" property="contactPerson" jdbcType="VARCHAR" />
+    <result column="phone" property="telphone" jdbcType="VARCHAR" />
+    <result column="registration_time" property="registrationTime" jdbcType="VARCHAR" />
+    <result column="status" property="qualification" jdbcType="TIMESTAMP" />
+    <result column="audit_status" property="certificationStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <select id="selectMerchantList" resultMap="MerchantResultMap" parameterType="com.shfc.cloud.account.query.UserListQuery" >
+    SELECT m.id,m.merchant_number,m.account,m.company_name,c.contacter,c.phone,c.registration_time,v.status,c.audit_status FROM merchant m ,
+    merchant_company c,merchant_vat_invoice v  WHERE m.company_id = c.id AND c.id = v.company_id
+    <if test="query.merchantId != null and query.merchantId != ''">
+      and m.id = #{query.merchantId,jdbcType=BIGINT}
+    </if>
+    <if test="query.account != null and query.account != ''">
+      and m.account = #{query.account,jdbcType=VARCHAR}
+    </if>
+    <if test="query.companyName != null and query.companyName != ''">
+      and c.name like '%${query.companyName}%'
+    </if>
+    <if test="query.statusCode != null and query.statusCode != ''">
+      and c.audit_status = #{query.statusCode,jdbcType=TINYINT}
+    </if>
+  </select>
+</mapper>

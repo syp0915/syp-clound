@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.shfc.framework</groupId>
+    <artifactId>shfc-parent</artifactId>
+    <version>1.0-RELEASE</version>
+    <relativePath></relativePath>
+  </parent>
+  <groupId>com.shfc.cloud</groupId>
+  <artifactId>gateway-service</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>gateway-api</module>
+    <module>gateway-provider</module>
+  </modules>
+  <packaging>pom</packaging>
+
+  <name>gateway-service</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.8</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fc.redis</groupId>
+      <artifactId>redis-utils</artifactId>
+      <version>1.0</version>
+    </dependency>
+  </dependencies>
+</project>

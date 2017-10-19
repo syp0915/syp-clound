@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shfc.cloud.video.dao.AttachReviewLogMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.cloud.video.domain.AttachReviewLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="channel_no" jdbcType="VARCHAR" property="channelNo" />
+    <result column="attach_id" jdbcType="BIGINT" property="attachId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="approver_type" jdbcType="TINYINT" property="approverType" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="approver_id" jdbcType="BIGINT" property="approverId" />
+    <result column="isclear" jdbcType="TINYINT" property="isclear" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, channel_no, attach_id, status, approver_type, reason, approver_id,
+    isclear, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from attach_review_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from attach_review_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.cloud.video.domain.AttachReviewLog" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into attach_review_log (id, merchant_id, channel_no,
+    attach_id, status, approver_type,
+    reason, approver_id, isclear,
+    creater, create_time, modifier,
+    modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{merchantId,jdbcType=BIGINT}, #{channelNo,jdbcType=VARCHAR},
+    #{attachId,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{approverType,jdbcType=TINYINT},
+    #{reason,jdbcType=VARCHAR}, #{approverId,jdbcType=BIGINT}, #{isclear,jdbcType=TINYINT},
+    #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT},
+    #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.cloud.video.domain.AttachReviewLog" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into attach_review_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="channelNo != null">
+        channel_no,
+      </if>
+      <if test="attachId != null">
+        attach_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="approverType != null">
+        approver_type,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="approverId != null">
+        approver_id,
+      </if>
+      <if test="isclear != null">
+        isclear,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="attachId != null">
+        #{attachId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="approverType != null">
+        #{approverType,jdbcType=TINYINT},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="approverId != null">
+        #{approverId,jdbcType=BIGINT},
+      </if>
+      <if test="isclear != null">
+        #{isclear,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.cloud.video.domain.AttachReviewLog">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update attach_review_log
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        channel_no = #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="attachId != null">
+        attach_id = #{attachId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="approverType != null">
+        approver_type = #{approverType,jdbcType=TINYINT},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="approverId != null">
+        approver_id = #{approverId,jdbcType=BIGINT},
+      </if>
+      <if test="isclear != null">
+        isclear = #{isclear,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.cloud.video.domain.AttachReviewLog">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update attach_review_log
+    set merchant_id = #{merchantId,jdbcType=BIGINT},
+    channel_no = #{channelNo,jdbcType=VARCHAR},
+    attach_id = #{attachId,jdbcType=BIGINT},
+    status = #{status,jdbcType=TINYINT},
+    approver_type = #{approverType,jdbcType=TINYINT},
+    reason = #{reason,jdbcType=VARCHAR},
+    approver_id = #{approverId,jdbcType=BIGINT},
+    isclear = #{isclear,jdbcType=TINYINT},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from attach_review_log
+    order by create_time desc
+  </select>
+  <resultMap id="ApproverResultMap" type="com.shfc.cloud.video.dto.ApproverDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="approver_type" jdbcType="TINYINT" property="approverType" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="approver_id" jdbcType="BIGINT" property="approverId" />
+    <result column="create_time" jdbcType="VARCHAR" property="creattime" />
+  </resultMap>
+  <select id="selectapproverList" resultMap="ApproverResultMap" parameterType="com.shfc.cloud.video.query.ResourceInfoQuery">
+    select
+    id,status,approver_type,reason,approver_id,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') as create_time
+    from attach_review_log l where 1=1
+    <if test="query.merchantId !=null and query.merchantId != '' ">
+      and l.merchant_id = #{query.merchantId,jdbcType=BIGINT}
+    </if>
+    <if test="query.channelNo !=null and query.channelNo != '' ">
+      and l.channel_no = #{query.channelNo,jdbcType=VARCHAR}
+    </if>
+    <if test="query.fileId !=null and query.fileId != '' ">
+      and l.attach_id = #{query.fileId,jdbcType=BIGINT}
+    </if>
+    order by create_time desc
+  </select>
+</mapper>

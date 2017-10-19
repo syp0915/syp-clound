@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shfc.cloud.video.dao.AttachMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.cloud.video.domain.Attach">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="attach_name" jdbcType="VARCHAR" property="attachName" />
+    <result column="attach_url" jdbcType="VARCHAR" property="attachUrl" />
+    <result column="tv_url" jdbcType="VARCHAR" property="tvUrl" />
+    <result column="attach_suffix" jdbcType="VARCHAR" property="attachSuffix" />
+    <result column="fastdfs_name" jdbcType="VARCHAR" property="fastdfsName" />
+    <result column="attach_size" jdbcType="BIGINT" property="attachSize" />
+    <result column="is_del" jdbcType="TINYINT" property="isDel" />
+    <result column="thumbnail_picture" jdbcType="VARCHAR" property="thumbnailPicture" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, attach_name, attach_url, tv_url, attach_suffix, fastdfs_name, attach_size, is_del,
+    thumbnail_picture, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from attach
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from attach
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.cloud.video.domain.Attach" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into attach (id, attach_name, attach_url,
+    tv_url, attach_suffix, fastdfs_name,
+    attach_size, is_del, thumbnail_picture,
+    creater, create_time, modifier,
+    modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{attachName,jdbcType=VARCHAR}, #{attachUrl,jdbcType=VARCHAR},
+    #{tvUrl,jdbcType=VARCHAR}, #{attachSuffix,jdbcType=VARCHAR}, #{fastdfsName,jdbcType=VARCHAR},
+    #{attachSize,jdbcType=BIGINT}, #{isDel,jdbcType=TINYINT}, #{thumbnailPicture,jdbcType=VARCHAR},
+    #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT},
+    #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.cloud.video.domain.Attach" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into attach
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="attachName != null">
+        attach_name,
+      </if>
+      <if test="attachUrl != null">
+        attach_url,
+      </if>
+      <if test="tvUrl != null">
+        tv_url,
+      </if>
+      <if test="attachSuffix != null">
+        attach_suffix,
+      </if>
+      <if test="fastdfsName != null">
+        fastdfs_name,
+      </if>
+      <if test="attachSize != null">
+        attach_size,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="thumbnailPicture != null">
+        thumbnail_picture,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="attachName != null">
+        #{attachName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachUrl != null">
+        #{attachUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tvUrl != null">
+        #{tvUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="attachSuffix != null">
+        #{attachSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="fastdfsName != null">
+        #{fastdfsName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachSize != null">
+        #{attachSize,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="thumbnailPicture != null">
+        #{thumbnailPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.cloud.video.domain.Attach">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update attach
+    <set>
+      <if test="attachName != null">
+        attach_name = #{attachName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachUrl != null">
+        attach_url = #{attachUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tvUrl != null">
+        tv_url = #{tvUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="attachSuffix != null">
+        attach_suffix = #{attachSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="fastdfsName != null">
+        fastdfs_name = #{fastdfsName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachSize != null">
+        attach_size = #{attachSize,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="thumbnailPicture != null">
+        thumbnail_picture = #{thumbnailPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.cloud.video.domain.Attach">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update attach
+    set attach_name = #{attachName,jdbcType=VARCHAR},
+    attach_url = #{attachUrl,jdbcType=VARCHAR},
+    tv_url = #{tvUrl,jdbcType=VARCHAR},
+    attach_suffix = #{attachSuffix,jdbcType=VARCHAR},
+    fastdfs_name = #{fastdfsName,jdbcType=VARCHAR},
+    attach_size = #{attachSize,jdbcType=BIGINT},
+    is_del = #{isDel,jdbcType=TINYINT},
+    thumbnail_picture = #{thumbnailPicture,jdbcType=VARCHAR},
+    creater = #{creater,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modifier = #{modifier,jdbcType=BIGINT},
+    modify_time = now(),
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from attach
+    order by create_time desc
+  </select>
+  <resultMap id="ResourceListMap" type="com.shfc.cloud.video.dto.ResourceListDTO" >
+    <id column="id" jdbcType="BIGINT" property="fileId"  />
+    <result column="channel_no" jdbcType="VARCHAR" property="channelNo"  />
+    <result column="type" jdbcType="VARCHAR" property="channelType"  />
+    <result column="attach_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="attach_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="attach_suffix" property="imgType" jdbcType="TINYINT" />
+    <result column="status" property="statusCode" jdbcType="TINYINT" />
+    <result column="attach_size" property="imgSize" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="thumbnail_picture" property="thumbnailPicture" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="resourceList" parameterType="com.shfc.cloud.video.query.ResourceListQuery" resultMap="ResourceListMap">
+    SELECT a.id,a.attach_suffix,m.channel_no,c.type,a.attach_name,a.attach_url,m.status,a.attach_size,a.create_time,a.thumbnail_picture FROM attach a
+    ,attach_merchant m,tv_cloud.source_channel c WHERE 1= 1 AND a.id = m.attach_id
+    AND m.channel_no = c.channel_number
+    <if test="query!=null">
+        <if test="query.merchantId !=null and query.merchantId != '88888' ">
+          <if test="query.merchantId !=null and query.merchantId != '' ">
+            and m.merchant_id = #{query.merchantId,jdbcType=BIGINT}
+          </if>
+          <if test="query.channelNo !=null and query.channelNo != '' ">
+            and m.channel_no = #{query.channelNo}
+          </if>
+        </if>
+        <if test="query.type !=null and query.type != '' ">
+          and a.attach_suffix = #{query.type,jdbcType=BIGINT}
+        </if>
+        <if test="query.startDate != null and query.startDate != ''">
+          and a.create_time >= #{query.signStart,jdbcType=VARCHAR}
+        </if>
+        <if test="query.endDate != null and query.endDate != ''">
+          and a.create_time &lt;= #{query.signEnd,jdbcType=VARCHAR}
+        </if>
+        <if test="query.status !=null and query.status != '' ">
+          and m.status = #{query.status}
+        </if>
+    </if>
+    order by a.create_time desc
+  </select>
+  <resultMap id="ResourceInfoMap" type="com.shfc.cloud.video.dto.ResourceInfoDTO" >
+    <id column="id" jdbcType="BIGINT" property="fileId"  />
+    <result column="channel_no" jdbcType="VARCHAR" property="channelNo"  />
+    <result column="name" jdbcType="VARCHAR" property="channelName"  />
+    <result column="type" jdbcType="BIGINT" property="channelType"  />
+    <result column="attach_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="attach_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="attach_suffix" property="imgType" jdbcType="TINYINT" />
+    <result column="attach_size" property="imgSize" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="approverTime" jdbcType="TIMESTAMP" />
+    <result column="desc_content" property="desc" jdbcType="VARCHAR" />
+    <result column="attach_size" property="size" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectResourceInfo" resultMap="ResourceInfoMap" parameterType="com.shfc.cloud.video.query.ResourceInfoQuery" >
+    select
+    a.id,m.channel_no,a.attach_name,a.attach_size,a.attach_url,a.attach_suffix,m.status,m.create_time,m.modify_time,m.desc_content,c.type,c.name
+     FROM attach a,attach_merchant m,tv_cloud.source_channel c
+    where a.id = m.attach_id AND m.channel_no = c.channel_number AND a.id = #{fileId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectSumSizeBychannelNo" resultType="java.lang.Integer" parameterType="java.lang.String">
+   SELECT SUM(attach_size) AS sum_size FROM attach WHERE ID IN(SELECT attach_id FROM attach_merchant WHERE channel_no = #{channleNo,jdbcType=VARCHAR} AND STATUS=3)
+    AND is_del = 0 AND attach_suffix IN(0,1)
+  </select>
+</mapper>

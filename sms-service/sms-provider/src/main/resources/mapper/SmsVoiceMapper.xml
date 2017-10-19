@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.sms.dao.SmsVoiceMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.sms.domain.SmsVoice">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="channel_no" jdbcType="VARCHAR" property="channelNo" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="sms_code" jdbcType="VARCHAR" property="smsCode" />
+    <result column="send_status" jdbcType="TINYINT" property="sendStatus" />
+    <result column="sms_fee" jdbcType="DECIMAL" property="smsFee" />
+    <result column="send_count" jdbcType="INTEGER" property="sendCount" />
+    <result column="sid" jdbcType="VARCHAR" property="sid" />
+    <result column="channel" jdbcType="TINYINT" property="channel" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, channel_no, mobile, sms_code, send_status, sms_fee, send_count, sid, channel,
+    creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sms_voice
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sms_voice
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.sms.domain.SmsVoice" useGeneratedKeys="true">
+    insert into sms_voice (id, merchant_id, channel_no, mobile,
+      sms_code, send_status, sms_fee, 
+      send_count, sid, channel, 
+      creater, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{merchantId,jdbcType=BIGINT},#{channelNo,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+      #{smsCode,jdbcType=VARCHAR}, #{sendStatus,jdbcType=TINYINT}, #{smsFee,jdbcType=DECIMAL}, 
+      #{sendCount,jdbcType=INTEGER}, #{sid,jdbcType=VARCHAR}, #{channel,jdbcType=TINYINT}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.sms.domain.SmsVoice" useGeneratedKeys="true">
+    insert into sms_voice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="channelNo != null">
+        channel_no,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="smsCode != null">
+        sms_code,
+      </if>
+      <if test="sendStatus != null">
+        send_status,
+      </if>
+      <if test="smsFee != null">
+        sms_fee,
+      </if>
+      <if test="sendCount != null">
+        send_count,
+      </if>
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCode != null">
+        #{smsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStatus != null">
+        #{sendStatus,jdbcType=TINYINT},
+      </if>
+      <if test="smsFee != null">
+        #{smsFee,jdbcType=DECIMAL},
+      </if>
+      <if test="sendCount != null">
+        #{sendCount,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null">
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.sms.domain.SmsVoice">
+    update sms_voice
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        channel_no = #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCode != null">
+        sms_code = #{smsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStatus != null">
+        send_status = #{sendStatus,jdbcType=TINYINT},
+      </if>
+      <if test="smsFee != null">
+        sms_fee = #{smsFee,jdbcType=DECIMAL},
+      </if>
+      <if test="sendCount != null">
+        send_count = #{sendCount,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null">
+        sid = #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.sms.domain.SmsVoice">
+    update sms_voice
+    set merchant_id = #{merchantId,jdbcType=BIGINT},
+      channel_no = #{channelNo,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      sms_code = #{smsCode,jdbcType=VARCHAR},
+      send_status = #{sendStatus,jdbcType=TINYINT},
+      sms_fee = #{smsFee,jdbcType=DECIMAL},
+      send_count = #{sendCount,jdbcType=INTEGER},
+      sid = #{sid,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="smsVoiceList" parameterType="com.shfc.sms.query.SmsRecordQuery" resultMap="BaseResultMap">
+    SELECT * from sms_voice t
+    <where>
+      <if test="query!=null">
+        <if test="query.merchantId !=null and query.merchantId != '' ">
+          t.merchant_id = #{query.merchantId}
+        </if>
+        <if test="query.mobile !=null and query.mobile != '' ">
+          and t.mobile  LIKE CONCAT('%',#{query.mobile},'%')
+        </if>
+        <if test="query.sendStatus !=null and query.sendStatus !='' ">
+          and t.send_status = #{query.sendStatus}
+        </if>
+        <if test="query.beginTime !=null and query.beginTime !='' and query.endTime !=null and query.endTime !=null">
+          and t.create_time BETWEEN STR_TO_DATE(#{query.beginTime},'%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{query.endTime},'%Y-%m-%d %H:%i:%s')
+        </if>
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.sms.dao.SmsMerchantTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.sms.domain.SmsMerchantTemplate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="channel_no" jdbcType="BIGINT" property="channelNo" />
+    <result column="sms_sign_id" jdbcType="BIGINT" property="smsSignId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="audit_status" jdbcType="TINYINT" property="auditStatus" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="channel" jdbcType="TINYINT" property="channel" />
+    <result column="channel_tpl_id" jdbcType="BIGINT" property="channelTplId" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id,channel_no, sms_sign_id, content, audit_status, reason, channel, channel_tpl_id,
+    is_delete, creater, create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sms_merchant_template
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sms_merchant_template
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.sms.domain.SmsMerchantTemplate" useGeneratedKeys="true">
+    insert into sms_merchant_template (id, merchant_id,channel_no, sms_sign_id,
+      content, audit_status, reason, 
+      channel, channel_tpl_id, is_delete, 
+      creater, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{merchantId,jdbcType=BIGINT},
+      #{channelNo,jdbcType=VARCHAR}, #{smsSignId,jdbcType=BIGINT},
+      #{content,jdbcType=VARCHAR}, #{auditStatus,jdbcType=TINYINT}, #{reason,jdbcType=VARCHAR}, 
+      #{channel,jdbcType=TINYINT}, #{channelTplId,jdbcType=BIGINT}, #{isDelete,jdbcType=TINYINT}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.sms.domain.SmsMerchantTemplate" useGeneratedKeys="true">
+    insert into sms_merchant_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="channelNo != null">
+        channel_no,
+      </if>
+      <if test="smsSignId != null">
+        sms_sign_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="channelTplId != null">
+        channel_tpl_id,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="smsSignId != null">
+        #{smsSignId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="channelTplId != null">
+        #{channelTplId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.sms.domain.SmsMerchantTemplate">
+    update sms_merchant_template
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        channel_no = #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="smsSignId != null">
+        sms_sign_id = #{smsSignId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="channelTplId != null">
+        channel_tpl_id = #{channelTplId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.sms.domain.SmsMerchantTemplate">
+    update sms_merchant_template
+    set merchant_id = #{merchantId,jdbcType=BIGINT},
+      channel_no = #{channelNo,jdbcType=VARCHAR},
+      sms_sign_id = #{smsSignId,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=TINYINT},
+      reason = #{reason,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=TINYINT},
+      channel_tpl_id = #{channelTplId,jdbcType=BIGINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateBychannelTplId" parameterType="com.shfc.sms.domain.SmsMerchantTemplate">
+    update sms_merchant_template
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        channel_no = #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="smsSignId != null">
+        sms_sign_id = #{smsSignId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where channel_tpl_id = #{channelTplId,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByChannelTplId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sms_merchant_template
+    where channel_tpl_id = #{channelTplId,jdbcType=BIGINT} and is_delete='0' limit 1;
+  </select>
+
+  <select id="queryTplByTplId" parameterType="java.util.HashMap" resultType="com.shfc.sms.dto.TemplateResultDTO">
+   SELECT
+    id AS tplId,
+    content AS tplContent,
+    audit_status AS checkStatus,
+    reason
+    from sms_merchant_template
+    where is_delete=0
+      <if test="tplId != null">
+        and id = #{tplId,jdbcType=BIGINT}
+      </if>
+      <if test="merchantId != null">
+        and merchant_id = #{merchantId,jdbcType=BIGINT}
+      </if>
+      <if test="channelNo != null">
+        and channel_no = #{channelNo,jdbcType=VARCHAR}
+      </if>
+  </select>
+
+
+  <select id="queryTpl" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    FROM
+    sms_merchant_template
+    WHERE
+    audit_status = 0 AND is_delete = 0
+  </select>
+</mapper>

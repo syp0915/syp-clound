@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.cloud.account.dao.ServiceTypeMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.cloud.account.domain.ServiceType">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="fee_num" jdbcType="DOUBLE" property="feeNum" />
+    <result column="fee_unit" jdbcType="VARCHAR" property="feeUnit" />
+    <result column="is_stretch" jdbcType="BIT" property="isStretch" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, fee_num, fee_unit, is_stretch, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select
+    <include refid="Base_Column_List" />
+    from service_type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from service_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.cloud.account.domain.ServiceType" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into service_type (id, name, fee_num,
+    fee_unit, is_stretch, version
+    )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{feeNum,jdbcType=DOUBLE},
+    #{feeUnit,jdbcType=VARCHAR}, #{isStretch,jdbcType=BIT}, 0
+    )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.cloud.account.domain.ServiceType" useGeneratedKeys="true">
+    <!--
+    开发负责人：liaozm
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into service_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="feeNum != null">
+        fee_num,
+      </if>
+      <if test="feeUnit != null">
+        fee_unit,
+      </if>
+      <if test="isStretch != null">
+        is_stretch,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="feeNum != null">
+        #{feeNum,jdbcType=DOUBLE},
+      </if>
+      <if test="feeUnit != null">
+        #{feeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isStretch != null">
+        #{isStretch,jdbcType=BIT},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.cloud.account.domain.ServiceType">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update service_type
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="feeNum != null">
+        fee_num = #{feeNum,jdbcType=DOUBLE},
+      </if>
+      <if test="feeUnit != null">
+        fee_unit = #{feeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isStretch != null">
+        is_stretch = #{isStretch,jdbcType=BIT},
+      </if>
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.cloud.account.domain.ServiceType">
+    <!--
+    开发负责人：liaozm
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update service_type
+    set name = #{name,jdbcType=VARCHAR},
+    fee_num = #{feeNum,jdbcType=DOUBLE},
+    fee_unit = #{feeUnit,jdbcType=VARCHAR},
+    is_stretch = #{isStretch,jdbcType=BIT},
+    version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from service_type
+    order by create_time desc
+  </select>
+</mapper>

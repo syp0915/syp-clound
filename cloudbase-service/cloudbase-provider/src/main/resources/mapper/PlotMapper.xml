@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shfc.cloud.cloudbase.dao.PlotMapper" >
+  <resultMap id="BaseResultMap" type="com.shfc.cloud.cloudbase.domain.Plot" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="residence_id" property="residenceId" jdbcType="BIGINT" />
+    <result column="city_id" property="cityId" jdbcType="BIGINT" />
+    <result column="block_id" property="blockId" jdbcType="BIGINT" />
+    <result column="district_id" property="districtId" jdbcType="BIGINT" />
+    <result column="plot_name" property="plotName" jdbcType="VARCHAR" />
+    <result column="plot_alias" property="plotAlias" jdbcType="VARCHAR" />
+    <result column="plot_pinyin" property="plotPinyin" jdbcType="VARCHAR" />
+    <result column="plot_pinyin_abbr" property="plotPinyinAbbr" jdbcType="VARCHAR" />
+    <result column="plot_address" property="plotAddress" jdbcType="VARCHAR" />
+    <result column="plot_postcode" property="plotPostcode" jdbcType="VARCHAR" />
+    <result column="longtitude" property="longtitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="BIGINT" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, residence_id, city_id, block_id, district_id, plot_name, plot_alias, plot_pinyin, 
+    plot_pinyin_abbr, plot_address, plot_postcode, longtitude, latitude, creator, create_time, 
+    modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from plot
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from plot
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert"  keyProperty="id" parameterType="com.shfc.cloud.cloudbase.domain.Plot" useGeneratedKeys="true">
+    insert into plot (residence_id, city_id, block_id, 
+      district_id, plot_name, plot_alias, 
+      plot_pinyin, plot_pinyin_abbr, plot_address, 
+      plot_postcode, longtitude, latitude, 
+      creator, create_time, modifier, 
+      modify_time, version)
+    values (#{residenceId,jdbcType=BIGINT}, #{cityId,jdbcType=BIGINT}, #{blockId,jdbcType=BIGINT}, 
+      #{districtId,jdbcType=BIGINT}, #{plotName,jdbcType=VARCHAR}, #{plotAlias,jdbcType=VARCHAR}, 
+      #{plotPinyin,jdbcType=VARCHAR}, #{plotPinyinAbbr,jdbcType=VARCHAR}, #{plotAddress,jdbcType=VARCHAR}, 
+      #{plotPostcode,jdbcType=VARCHAR}, #{longtitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR},
+      #{creator,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT},
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.cloud.cloudbase.domain.Plot" useGeneratedKeys="true">
+    insert into plot
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="residenceId != null" >
+        residence_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="blockId != null" >
+        block_id,
+      </if>
+      <if test="districtId != null" >
+        district_id,
+      </if>
+      <if test="plotName != null" >
+        plot_name,
+      </if>
+      <if test="plotAlias != null" >
+        plot_alias,
+      </if>
+      <if test="plotPinyin != null" >
+        plot_pinyin,
+      </if>
+      <if test="plotPinyinAbbr != null" >
+        plot_pinyin_abbr,
+      </if>
+      <if test="plotAddress != null" >
+        plot_address,
+      </if>
+      <if test="plotPostcode != null" >
+        plot_postcode,
+      </if>
+      <if test="longtitude != null" >
+        longtitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="version != null" >
+        0,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="residenceId != null" >
+        #{residenceId,jdbcType=BIGINT},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="blockId != null" >
+        #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="districtId != null" >
+        #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null" >
+        #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="plotAlias != null" >
+        #{plotAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPinyin != null" >
+        #{plotPinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPinyinAbbr != null" >
+        #{plotPinyinAbbr,jdbcType=VARCHAR},
+      </if>
+      <if test="plotAddress != null" >
+        #{plotAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPostcode != null" >
+        #{plotPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="longtitude != null" >
+        #{longtitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+       now(),
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+       0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.cloud.cloudbase.domain.Plot" >
+    update plot
+    <set >
+      <if test="residenceId != null" >
+        residence_id = #{residenceId,jdbcType=BIGINT},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="blockId != null" >
+        block_id = #{blockId,jdbcType=BIGINT},
+      </if>
+      <if test="districtId != null" >
+        district_id = #{districtId,jdbcType=BIGINT},
+      </if>
+      <if test="plotName != null" >
+        plot_name = #{plotName,jdbcType=VARCHAR},
+      </if>
+      <if test="plotAlias != null" >
+        plot_alias = #{plotAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPinyin != null" >
+        plot_pinyin = #{plotPinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPinyinAbbr != null" >
+        plot_pinyin_abbr = #{plotPinyinAbbr,jdbcType=VARCHAR},
+      </if>
+      <if test="plotAddress != null" >
+        plot_address = #{plotAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="plotPostcode != null" >
+        plot_postcode = #{plotPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="longtitude != null" >
+        longtitude = #{longtitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.cloud.cloudbase.domain.Plot" >
+    update plot
+    set residence_id = #{residenceId,jdbcType=BIGINT},
+      city_id = #{cityId,jdbcType=BIGINT},
+      block_id = #{blockId,jdbcType=BIGINT},
+      district_id = #{districtId,jdbcType=BIGINT},
+      plot_name = #{plotName,jdbcType=VARCHAR},
+      plot_alias = #{plotAlias,jdbcType=VARCHAR},
+      plot_pinyin = #{plotPinyin,jdbcType=VARCHAR},
+      plot_pinyin_abbr = #{plotPinyinAbbr,jdbcType=VARCHAR},
+      plot_address = #{plotAddress,jdbcType=VARCHAR},
+      plot_postcode = #{plotPostcode,jdbcType=VARCHAR},
+      longtitude = #{longtitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="queryPlotNameBykeyWord" parameterType="java.util.HashMap" resultType="com.shfc.cloud.cloudbase.dto.PlotDTO">
+    SELECT
+    id as plotId, plot_name as plotName
+    FROM
+    plot
+    where  plot_name LIKE CONCAT(#{keyword},'%')
+    <if test="districtId!=null">
+      and district_id =#{districtId,jdbcType=BIGINT}
+    </if>
+    <if test="blockId!=null">
+      or block_id=#{blockId,jdbcType=BIGINT}
+    </if>
+    <if test="num!=null">
+      limit #{num}
+    </if>
+    <if test="num==null">
+      limit 10
+    </if>
+
+
+  </select>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+       default-lazy-init="true">
+
+    <!--com.alibaba.dubbo.config.spring.ServiceBean-->
+    <bean id="serviceBean" class="com.shfc.dubbo.ServiceBean" abstract="true">
+        <property name="application" ref="dubboApplicationConfig"/>
+        <property name="registry" ref="dubboRegistryConfig"/>
+        <property name="protocol" ref="dubboProtocolConfig"/>
+        <property name="version" value="${provider.default_version}"/>
+        <property name="timeout" value="${provider.timeout}"/>
+        <property name="retries" value="0"/>
+    </bean>
+    <!--模板服务-->
+    <bean id="smsMerchantTemplateService" parent="serviceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsMerchantTemplateService"/>
+    </bean>
+    <!--签名服务-->
+    <bean id="smsMerchantSignService" parent="serviceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsMerchantSignService"/>
+    </bean>
+    <!--短信发送服务-->
+    <bean id="smsSendService" parent="serviceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsSendService"/>
+    </bean>
+    <!--语音发送服务-->
+    <bean id="smsSendVoiceService" parent="serviceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsSendVoiceService"/>
+    </bean>
+    <!--短信查询记录 -->
+    <bean id="smsRecordService" parent="serviceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsRecordService"/>
+    </bean>
+    <!--语音查询记录 -->
+    <bean id="smsVoiceRecordService" parent="serviceBean">
+        <property name="interface" value="com.shfc.sms.service.SmsVoiceRecordService"/>
+    </bean>
+
+</beans>

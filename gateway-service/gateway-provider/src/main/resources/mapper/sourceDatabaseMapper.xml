@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.cloud.gateway.dao.SourceDatabaseMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.cloud.gateway.domain.SourceDatabase">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channel_id" jdbcType="BIGINT" property="channelId" />
+    <result column="channel_no" jdbcType="VARCHAR" property="channelNo" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
+    <result column="merchant_number" jdbcType="VARCHAR" property="merchantNumber" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="db_type" jdbcType="VARCHAR" property="dbType" />
+    <result column="db_version" jdbcType="VARCHAR" property="dbVersion" />
+    <result column="space" jdbcType="BIGINT" property="space" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="open_time" jdbcType="TIMESTAMP" property="openTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_id, channel_no, merchant_id, merchant_number, name, ip, db_type, db_version, 
+    space, status, create_time, open_time, end_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键获取一条数据库记录
+    是否有缓存：无
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from source_database
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByMerchantId" parameterType="com.shfc.cloud.gateway.domain.SourceDatabase" resultType="com.shfc.cloud.gateway.domain.SourceDataInfo">
+    SELECT
+  a.ip ip,
+  b.`account_number` user,
+  b.`account_password` password
+  FROM
+  tv_cloud.source_database a,
+  tv_cloud.source_channel_account b
+WHERE a.`merchant_id` = b.`merchant_id`
+  AND a.`channel_no` = b.`channel_no`
+  AND a.merchant_id = #{merchantId}
+  AND a.name = #{name}
+  AND a.channel_no = #{channelNo}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键删除数据库的记录
+    是否有缓存：无
+    -->
+    delete from source_database
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.cloud.gateway.domain.SourceDatabase" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：插入数据库记录
+    是否有缓存：无
+    -->
+    insert into source_database (id, channel_id, channel_no, 
+      merchant_id, merchant_number, name, 
+      ip, db_type, db_version, 
+      space, status, create_time, 
+      open_time, end_time, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{channelId,jdbcType=BIGINT}, #{channelNo,jdbcType=VARCHAR}, 
+      #{merchantId,jdbcType=BIGINT}, #{merchantNumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{dbType,jdbcType=VARCHAR}, #{dbVersion,jdbcType=VARCHAR}, 
+      #{space,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, now(), 
+      #{openTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 0
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.cloud.gateway.domain.SourceDatabase" useGeneratedKeys="true">
+    <!--
+    开发负责人：lv bin
+    功能说明：选择性插入数据库记录
+    是否有缓存：无
+    -->
+    insert into source_database
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="channelId != null">
+        channel_id,
+      </if>
+      <if test="channelNo != null">
+        channel_no,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="merchantNumber != null">
+        merchant_number,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="dbType != null">
+        db_type,
+      </if>
+      <if test="dbVersion != null">
+        db_version,
+      </if>
+      <if test="space != null">
+        space,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="openTime != null">
+        open_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="merchantNumber != null">
+        #{merchantNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="dbType != null">
+        #{dbType,jdbcType=VARCHAR},
+      </if>
+      <if test="dbVersion != null">
+        #{dbVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="space != null">
+        #{space,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="openTime != null">
+        #{openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.cloud.gateway.domain.SourceDatabase">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新对应数据库字段
+    是否有缓存：无
+    -->
+    update source_database
+    <set>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="channelNo != null">
+        channel_no = #{channelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="merchantNumber != null">
+        merchant_number = #{merchantNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="dbType != null">
+        db_type = #{dbType,jdbcType=VARCHAR},
+      </if>
+      <if test="dbVersion != null">
+        db_version = #{dbVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="space != null">
+        space = #{space,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openTime != null">
+        open_time = #{openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.cloud.gateway.domain.SourceDatabase">
+    <!--
+    开发负责人：lv bin
+    功能说明：根据主键来更新数据库记录
+    是否有缓存：无
+    -->
+    update source_database
+    set channel_id = #{channelId,jdbcType=BIGINT},
+      channel_no = #{channelNo,jdbcType=VARCHAR},
+      merchant_id = #{merchantId,jdbcType=BIGINT},
+      merchant_number = #{merchantNumber,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      db_type = #{dbType,jdbcType=VARCHAR},
+      db_version = #{dbVersion,jdbcType=VARCHAR},
+      space = #{space,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      open_time = #{openTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" /> 
+    from source_database
+    order by create_time desc 
+  </select>
+</mapper>
